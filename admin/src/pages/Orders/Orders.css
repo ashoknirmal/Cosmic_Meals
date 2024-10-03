@@ -1,0 +1,148 @@
+/* Orders.css */
+
+.order {
+    padding: 20px;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .order h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .order-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  .order-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .order-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .order-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+  }
+  
+  .order-item div {
+    width: 100%;
+    text-align: left;
+  }
+  
+  .order-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .order-item-food {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .order-item-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .order-item-address p {
+    margin: 0;
+    color: #777;
+  }
+  
+  .order-item-phone {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .order-item select {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #020202;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: border 0.3s ease;
+  }
+  
+  .order-item select:hover {
+    border-color: #007bff;
+  }
+  
+  /* Add some space between elements */
+  .order-item p:last-child {
+    margin-top: 15px;
+  }
+  
+  .order-item select {
+    margin-top: 10px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .order h3 {
+      font-size: 2rem;
+    }
+  
+    .order-list {
+      padding: 0 10px;
+      grid-template-columns: 1fr;
+    }
+  
+    .order-item {
+      padding: 15px;
+    }
+  
+    .order-item img {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .order-item p {
+      font-size: 0.9rem;
+    }
+  
+    .order-item select {
+      padding: 6px 10px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .order h3 {
+      font-size: 1.8rem;
+    }
+  
+    .order-item p {
+      font-size: 0.8rem;
+    }
+  
+    .order-item select {
+      padding: 5px 8px;
+    }
+  }
+  
