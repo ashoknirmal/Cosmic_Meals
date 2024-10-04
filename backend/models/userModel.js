@@ -1,11 +1,24 @@
-import mongoose from "mongoose"
+import { sql } from '@vercel/postgres';
 
-const userSchema = new mongoose.Schema({
-    name:{type:String,required:true},
-    email:{type:String,required:true,unique:true},
-    password:{type:String,required:true},
-    cartData:{type:Object,default:{}}
-},{minimize:false})
+// Create Users table
+export const createUsersTable = async () => {
+  await sql`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      cartData JSON DEFAULT '{}'::json
+    );
+  `;
+};
 
-const userModel = mongoose.model.user || mongoose.model("user",userSchema);
-export default userModel;
+// Insert a new user
+export const createUser = async (name, email, password, cartData = {}) => {
+  const { rows } = await sql`
+    INSERT INTO users (name, email, password, cartData)
+    VALUES (${name}, ${email}, ${password}, ${cartData})
+    RETURNING *;
+  `;
+  return rows[0];
+};
