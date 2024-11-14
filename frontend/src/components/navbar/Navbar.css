@@ -1,14 +1,13 @@
-
-.navbar{
+.navbar {
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.navbar .logo{
+.navbar .logo {
     width: 150px;
 }
-.navbar-menu{
+.navbar-menu {
     display: flex;
     list-style: none;
     gap: 40px;
@@ -16,41 +15,94 @@
     font-size: 18px;
 }
 
-.navbar-right{
+.navbar-right {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
+    position: relative;
 }
 
-.navbar button{
+.navbar button {
     background: transparent;
     font-size: 16px;
     color: #49557e;
-    border:1px solid tomato;
+    border: 1px solid tomato;
     padding: 10px 30px;
     border-radius: 50px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.navbar button:hover{
+.navbar button:hover {
     background-color: rgb(244, 207, 86);
 }
 
-.navbar .active{
+.navbar .active {
     padding-bottom: 2px;
     border-bottom: 2px solid #49557e;
 }
 
-.navbar li{
+.navbar li {
     cursor: pointer;
 }
 
-.navbar-search-icon{
+.navbar-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-search .search {
+    color: #49557e;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-search .search:hover {
+    color: rgb(123, 126, 125);
+}
+
+.navbar-search-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+.navbar-search-form input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 150px;
+    transition: width 0.3s ease;
+}
+
+.navbar-search-form input:focus {
+    width: 200px;
+    outline: none;
+    border-color: #49557e;
+}
+
+.navbar-search-form button {
+    padding: 8px 12px;
+    background-color: #49557e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.navbar-search-form button:hover {
+    background-color: #3b4c78;
+}
+
+.navbar-search-icon {
     position: relative;
 }
 
-.navbar-search-icon .dot{
+.navbar-search-icon .dot {
     position: absolute;
     min-width: 10px;
     min-height: 10px;
@@ -60,55 +112,61 @@
     right: -8px;
 }
 
-@media (max-width:1050px){
-    .navbar .logo{
+@media (max-width: 1050px) {
+    .navbar .logo {
         width: 140px;
     }
-    .navbar-menu{
+    .navbar-menu {
         gap: 20px;
         font-size: 17px;
     }
-    .navbar-right{
-        gap:30px;
+    .navbar-right {
+        gap: 30px;
     }
-    .navbar-right img{
+    .navbar-right img {
         width: 22px;
     }
-    .navbar-right button{
+    .navbar-right button {
         padding: 8px 25px;
     }
 }
 
-@media (max-width:900px){
-    .navbar .logo{
+@media (max-width: 900px) {
+    .navbar .logo {
         width: 120px;
     }
-    .navbar-menu{
+    .navbar-menu {
         gap: 15px;
         font-size: 16px;
     }
-    .navbar-right{
-        gap:20px;
+    .navbar-right {
+        gap: 20px;
     }
-    .navbar-right img{
+    .navbar-right img {
         width: 20px;
     }
-    .navbar-right button{
+    .navbar-right button {
         padding: 7px 20px;
         font-size: 15px;
     }
 }
 
-.navbar-profile{
+@media (max-width: 750px) {
+    .navbar-menu {
+        display: none;
+    }
+}
+
+.navbar-profile {
     position: relative;
 }
-.nav-profile-dropdown{
+.nav-profile-dropdown {
     position: absolute;
     display: none;
     right: 0;
     z-index: 1;
 }
-.navbar-profile:hover .nav-profile-dropdown{
+.navbar-profile:hover .nav-profile-dropdown {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -119,31 +177,15 @@
     outline: 2px solid white;
     list-style: none;
 }
-.nav-profile-dropdown li{
+.nav-profile-dropdown li {
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
 }
-.nav-profile-dropdown img{
+.nav-profile-dropdown img {
     width: 20px;
 }
-.nav-profile-dropdown li:hover{
+.nav-profile-dropdown li:hover {
     color: rgb(133, 137, 135);
 }
-.search {
-    color: #49557e;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.search:hover {
-    color: rgb(123, 126, 125);
-}
-
-@media (max-width:750px){
-    .navbar-menu{
-        display: none;
-    }
-    
-} 
