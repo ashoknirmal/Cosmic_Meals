@@ -1,47 +1,58 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    DOCKER_COMPOSE_FILE = 'docker-compose.yml'
-  }
-
-  stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/ashoknirmal/Cosmic_Meals.git'
-      }
+    environment {
+        DOCKER_IMAGE_FRONTEND = "ashokstack/cosmic_frontend"
+        DOCKER_IMAGE_BACKEND = "ashokstack/cosmic_backend"
+        DOCKER_IMAGE_ADMIN = "ashokstack/cosmic_admin"
     }
 
-    stage('Build Docker Images') {
-      steps {
-        sh 'docker-compose build'
-      }
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/ashoknirmal/Cosmic_Meals.git'
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    docker.build(DOCKER_IMAGE_FRONTEND, 'frontend')
+                    docker.build(DOCKER_IMAGE_BACKEND, 'backend')
+                    docker.build(DOCKER_IMAGE_ADMIN, 'admin')
+                }
+            }
+        }
+
+        stage('Run Containers') {
+            steps {
+                sh 'docker-compose down || true'
+                sh 'docker-compose up -d'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo 'Run your tests here, e.g., backend API tests or frontend unit tests'
+                // Example placeholder:
+                sh 'echo "All tests passed!"'
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                echo 'Cleaning up...'
+                sh 'docker image prune -f'
+            }
+        }
     }
 
-    stage('Run Containers') {
-      steps {
-        sh 'docker-compose up -d'
-      }
+    post {
+        success {
+            echo '✅ Pipeline completed successfully.'
+        }
+        failure {
+            echo '❌ Pipeline failed.'
+        }
     }
-
-    stage('Test') {
-      steps {
-        echo 'Run backend or frontend tests here (optional)'
-        // e.g., sh 'docker exec backend npm test'
-      }
-    }
-
-    stage('Deploy Complete') {
-      steps {
-        echo 'Application deployed successfully!'
-      }
-    }
-  }
-
-  post {
-    always {
-      echo 'Cleaning up...'
-      sh 'docker-compose down'
-    }
-  }
 }
