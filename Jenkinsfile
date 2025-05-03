@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/ashoknirmal/Cosmic_Meals.git'
+                // Specify the correct branch (main)
+                git branch: 'main', url: 'https://github.com/ashoknirmal/Cosmic_Meals.git'
             }
         }
 
@@ -34,7 +35,6 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo 'Run your tests here, e.g., backend API tests or frontend unit tests'
-                // Example placeholder:
                 sh 'echo "All tests passed!"'
             }
         }
