@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",      // <-- Moved into "scripts"
-    "dev": "nodemon server.js"      // Optional: a dev command
+    "start": "node server.js",     
+    "dev": "nodemon server.js"     
   },
   "author": "",
   "license": "ISC",
