@@ -1,4 +1,4 @@
-# Dockerfile for Vite + React frontend
+# Stage 1: Build the app using Node.js
 FROM node:18-alpine
 
 WORKDIR /app
@@ -7,13 +7,8 @@ COPY . .
 
 RUN npm install
 
-RUN npm run build
+# Expose port 5173 for Vite's dev server
+EXPOSE 5173
 
-# Use nginx to serve built files
-FROM nginx:alpine
-
-COPY --from=0 /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Run the development server
+CMD ["npm", "run", "dev", "--", "--host"]
