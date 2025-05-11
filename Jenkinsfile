@@ -7,44 +7,54 @@ pipeline {
         DOCKER_IMAGE_ADMIN = "ashokstack/cosmic_admin"
     }
 
+    options {
+        timeout(time: 20, unit: 'MINUTES') // Prevent pipeline from hanging indefinitely
+    }
+
     stages {
         stage('Clone Repo') {
             steps {
-                // Specify the correct branch (main)
                 git branch: 'main', url: 'https://github.com/ashoknirmal/Cosmic_Meals.git'
             }
         }
 
         stage('Build Docker Images') {
-    steps {
-        script {
-            echo '🛠 Building frontend image...'
-            docker.build(DOCKER_IMAGE_FRONTEND, './frontend')
-            echo '🛠 Building backend image...'
-            docker.build(DOCKER_IMAGE_BACKEND, './backend')
-            echo '🛠 Building admin image...'
-            docker.build(DOCKER_IMAGE_ADMIN, './admin')
+            steps {
+                script {
+                    withEnv(["DOCKER_BUILDKIT=1"]) {
+                        echo '🛠 Building frontend image...'
+                        docker.build(env.DOCKER_IMAGE_FRONTEND, './frontend')
+
+                        echo '🛠 Building backend image...'
+                        docker.build(env.DOCKER_IMAGE_BACKEND, './backend')
+
+                        echo '🛠 Building admin image...'
+                        docker.build(env.DOCKER_IMAGE_ADMIN, './admin')
+                    }
+                }
+            }
         }
-    }
-}
 
         stage('Run Containers') {
             steps {
-                sh 'docker-compose down || true'
-                sh 'docker-compose up -d'
+                script {
+                    echo '🔄 Restarting containers with docker-compose...'
+                    sh 'docker-compose down || true'
+                    sh 'docker-compose up -d --build'
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                echo 'Run your tests here, e.g., backend API tests or frontend unit tests'
-                sh 'echo "All tests passed!"'
+                echo '🧪 Run your tests here (e.g., backend or frontend tests)'
+                sh 'echo "✅ All tests passed!"'
             }
         }
 
         stage('Cleanup') {
             steps {
-                echo 'Cleaning up...'
+                echo '🧹 Cleaning up unused Docker images...'
                 sh 'docker image prune -f'
             }
         }
@@ -56,6 +66,9 @@ pipeline {
         }
         failure {
             echo '❌ Pipeline failed.'
+        }
+        always {
+            echo '📦 Pipeline run finished.'
         }
     }
 }
