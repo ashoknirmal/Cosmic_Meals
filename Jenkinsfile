@@ -19,21 +19,19 @@ pipeline {
         }
 
         stage('Build Docker Images') {
-            steps {
-                script {
-                    withEnv(["DOCKER_BUILDKIT=1"]) {
-                        echo '🛠 Building frontend image...'
-                        docker.build(env.DOCKER_IMAGE_FRONTEND, './frontend')
+    steps {
+        script {
+            echo '🛠 Building frontend image...'
+            docker.build(env.DOCKER_IMAGE_FRONTEND, './frontend')
 
-                        echo '🛠 Building backend image...'
-                        docker.build(env.DOCKER_IMAGE_BACKEND, './backend')
+            echo '🛠 Building backend image...'
+            docker.build(env.DOCKER_IMAGE_BACKEND, './backend')
 
-                        echo '🛠 Building admin image...'
-                        docker.build(env.DOCKER_IMAGE_ADMIN, './admin')
-                    }
-                }
-            }
+            echo '🛠 Building admin image...'
+            docker.build(env.DOCKER_IMAGE_ADMIN, './admin')
         }
+    }
+}
 
         stage('Run Containers') {
             steps {
