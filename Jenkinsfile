@@ -16,14 +16,17 @@ pipeline {
         }
 
         stage('Build Docker Images') {
-            steps {
-                script {
-                    docker.build(DOCKER_IMAGE_FRONTEND, 'frontend')
-                    docker.build(DOCKER_IMAGE_BACKEND, 'backend')
-                    docker.build(DOCKER_IMAGE_ADMIN, 'admin')
-                }
-            }
+    steps {
+        script {
+            echo '🛠 Building frontend image...'
+            docker.build(DOCKER_IMAGE_FRONTEND, './frontend')
+            echo '🛠 Building backend image...'
+            docker.build(DOCKER_IMAGE_BACKEND, './backend')
+            echo '🛠 Building admin image...'
+            docker.build(DOCKER_IMAGE_ADMIN, './admin')
         }
+    }
+}
 
         stage('Run Containers') {
             steps {
